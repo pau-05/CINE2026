@@ -121,7 +121,7 @@ function confirmarVenta(){
 /*Mostramos el ticket de compra con la fecha, película, localidades y precio */
 function imprimirTicket(){
 
-    var importe=precio*butacaSel;
+    var importe = (precio * butacaSel) + " euros";
     var params="top=200,left=500,width=500,height=300,resizable=false";
     localStorage.setItem("pelicula",peli); 
     localStorage.setItem("asientos", asientos);
