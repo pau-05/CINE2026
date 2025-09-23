@@ -1,11 +1,12 @@
-var aPelis=new Array("Que bello es vivir","Solo en casa","Cuento de Navidad");
-var aLoc= new Array(50,120,60);
-var aSalas=new Array("1","2","3");
+var aPelis=new Array("Que bello es vivir","Solo en casa","Cuento de Navidad","Gladiator 2");
+var aLoc= new Array(50,120,60,120);
+var aSalas=new Array("1","2","3","2");
 //Almacenamos la localidades vendidas por sala: aVendidas1, aVendidas2 y aVendidas3
 //y las vendidas en la pelicula seleccionada en el array vendidas
 var aVendidas1= new Array();    
 var aVendidas2= new Array();
 var aVendidas3= new Array();
+var aVendidas4= aVendidas2; // Gladiator 2 usa mismas butacas que Solo en casa
 var vendidas=new Array();   
 var asientos=new Array();  //los asientos vendidos en cada compra
 var numButacas=0;   //butacas disponibles en la sala seleccionada
@@ -32,6 +33,9 @@ function seleccionarPeli(){
         case "3":
             vendidas=aVendidas3.slice(0,aVendidas3.length);
             break;
+        case "4": // Gladiator 2
+        vendidas=aVendidas4.slice(0,aVendidas4.length);
+            break;
     }
     pintarButacas();    
 }
@@ -57,6 +61,11 @@ function pintarButacas(){
         else{
             contenedor.innerHTML+="<br><br><button id='btnConfirm' onclick='confirmarVenta();' title='Comprar entradas'>Comprar</button>"
         }
+
+        let ocupacion = (vendidas.length / numButacas) * 100;
+        if (ocupacion > 50) {
+            contenedor.innerHTML += "<p style='color:red; font-weight:bold;'>⚠️ WARNING: Ocupación superior al 50%. ¡Apresúrese con la reserva!</p>";
+    }
 }
 
 /*Cuando se selecciona una localidad se comprueba si esta libre y se guarda o se borra
@@ -96,6 +105,9 @@ function confirmarVenta(){
             case "3":
                 aVendidas3=vendidas.slice(0,vendidas.length);
                 break;
+            case "4": // Gladiator 2
+                aVendidas4=vendidas.slice(0,vendidas.length);
+                break;
             }
         
         document.getElementById("contenedor").innerHTML="";
@@ -109,7 +121,7 @@ function confirmarVenta(){
 /*Mostramos el ticket de compra con la fecha, película, localidades y precio */
 function imprimirTicket(){
 
-    var importe=precio*butacaSel;
+    var importe = (precio * butacaSel) + " euros";
     var params="top=200,left=500,width=500,height=300,resizable=false";
     localStorage.setItem("pelicula",peli); 
     localStorage.setItem("asientos", asientos);
