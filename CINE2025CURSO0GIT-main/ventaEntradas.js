@@ -61,6 +61,11 @@ function pintarButacas(){
         else{
             contenedor.innerHTML+="<br><br><button id='btnConfirm' onclick='confirmarVenta();' title='Comprar entradas'>Comprar</button>"
         }
+
+        let ocupacion = (vendidas.length / numButacas) * 100;
+        if (ocupacion > 50) {
+            contenedor.innerHTML += "<p style='color:red; font-weight:bold;'>⚠️ WARNING: Ocupación superior al 50%. ¡Apresúrese con la reserva!</p>";
+    }
 }
 
 /*Cuando se selecciona una localidad se comprueba si esta libre y se guarda o se borra
